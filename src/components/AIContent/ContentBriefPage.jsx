@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { C } from '../../lib/tokens.js';
 import { Empty, Field } from '../ui/index.jsx';
+import { callClaude } from '../../lib/supabase.js';
 
 export function ContentBriefPage() {
   const[kw,setKw]=useState("");
@@ -30,8 +31,7 @@ Responda SOMENTE em JSON sem markdown:
 }`;
 
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:900,messages:[{role:"user",content:prompt}]})});
-      const data=await res.json();
+      const data=await callClaude({model:"claude-sonnet-4-20250514",max_tokens:900,messages:[{role:"user",content:prompt}]});
       const txt=data.content?.map(b=>b.text||"").join("")||"{}";
       const parsed=JSON.parse(txt.replace(/```json|```/g,"").trim());
       setBrief(parsed);

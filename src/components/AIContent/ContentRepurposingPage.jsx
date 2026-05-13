@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 import { C } from '../../lib/tokens.js';
-import { POSTS, WP_SITES, USERS, AUTOS, TEMPLATES, SOURCES, MEDIA, BACKUPS, NOTIFS, CHART_DATA, MONTHS, CATEGORIES_DATA, TAGS_DATA, PUBLISH_HISTORY, RECURRING, COMPETITORS, WEBSTORIES, KANBAN } from '../../lib/data.js';
-import { Ring, Tog, SChip, Bar, Spark, Empty, Dlg, Field } from '../ui/index.jsx';
+import { POSTS } from '../../lib/data.js';
+import { Empty, Field } from '../ui/index.jsx';
+import { callClaude } from '../../lib/supabase.js';
 
 export function ContentRepurposingPage({ showToast }) {
   const[selPost,setSelPost]=useState(POSTS.find(p=>p.status==="published")||POSTS[0]);
@@ -11,8 +12,7 @@ export function ContentRepurposingPage({ showToast }) {
     setLoading(true);setResults(null);
     const prompt=`Especialista em repurposing. Post: "${selPost.title}" (cat: ${selPost.cat}). Responda SOMENTE em JSON:\n{"newsletter":"2 parágrafos de newsletter","twitter_thread":"5 tweets numerados 1/5 a 5/5","linkedin":"post profissional 3 parágrafos + hashtags","youtube_script":"roteiro 60s para vídeo","faq":"5 perguntas e respostas"}`;
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:900,messages:[{role:"user",content:prompt}]})});
-      const data=await res.json();
+      const data=await callClaude({model:"claude-sonnet-4-20250514",max_tokens:900,messages:[{role:"user",content:prompt}]});
       const txt=data.content?.map(b=>b.text||"").join("")||"{}";
       setResults(JSON.parse(txt.replace(/```json|```/g,"").trim()));
     }catch{setResults({newsletter:"Erro ao gerar.",twitter_thread:"Erro.",linkedin:"Erro.",youtube_script:"Erro.",faq:"Erro."});}

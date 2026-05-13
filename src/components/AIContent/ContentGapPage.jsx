@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 import { C } from '../../lib/tokens.js';
-import { POSTS, WP_SITES, USERS, AUTOS, TEMPLATES, SOURCES, MEDIA, BACKUPS, NOTIFS, CHART_DATA, MONTHS, CATEGORIES_DATA, TAGS_DATA, PUBLISH_HISTORY, RECURRING, COMPETITORS, WEBSTORIES, KANBAN } from '../../lib/data.js';
-import { Ring, Tog, SChip, Bar, Spark, Empty, Dlg, Field } from '../ui/index.jsx';
+import { Empty } from '../ui/index.jsx';
+import { callClaude } from '../../lib/supabase.js';
 
 export function ContentGapPage() {
   const[analyzing,setAnalyzing]=useState(false);
@@ -12,8 +12,7 @@ export function ContentGapPage() {
     setAnalyzing(true);setGaps(null);
     const prompt=`Analise lacunas de conteúdo. Meus tópicos: ${myTopics.join(",")}. Concorrentes: ${competitorTopics.join(",")}. Responda SOMENTE em JSON:\n{"gaps":[{"topic":"...","opportunity":"alta|média|baixa","reason":"...","suggested_title":"..."}]}`;
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:700,messages:[{role:"user",content:prompt}]})});
-      const data=await res.json();
+      const data=await callClaude({model:"claude-sonnet-4-20250514",max_tokens:700,messages:[{role:"user",content:prompt}]});
       const txt=data.content?.map(b=>b.text||"").join("")||"{}";
       setGaps(JSON.parse(txt.replace(/```json|```/g,"").trim()));
     }catch{setGaps({gaps:[{topic:"Social Media",opportunity:"alta",reason:"Concorrentes têm forte presença",suggested_title:"Guia de Social Media para Blogs em 2026"},{topic:"PPC",opportunity:"alta",reason:"Alto volume, pouca cobertura",suggested_title:"Google Ads para Criadores de Conteúdo"},{topic:"Analytics",opportunity:"média",reason:"Tópico emergente",suggested_title:"GA4: Guia Prático para Bloggers"}]});}

@@ -1,5 +1,4 @@
 {
-  "name": "automatikpost",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
