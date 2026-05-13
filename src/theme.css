@@ -1,0 +1,104 @@
+/* AutomatikPOST — Theme variables (light + dark mode) */
+/* Substitui os tokens hard-coded por variáveis CSS */
+
+:root {
+  --bg:       #F3F6FD;
+  --s0:       #FFFFFF;
+  --s1:       #EEF2FA;
+  --s2:       #E3EAF8;
+  --s3:       #D8E3F5;
+  --p:        #1A56DB;
+  --pC:       #D9E4FF;
+  --onP:      #FFFFFF;
+  --onPC:     #001551;
+  --sec:      #5B6396;
+  --secC:     #DFE0FF;
+  --onSec:    #FFFFFF;
+  --onSecC:   #171B4B;
+  --ter:      #006B5D;
+  --terC:     #BFFFF5;
+  --onTer:    #FFFFFF;
+  --onTerC:   #002019;
+  --err:      #BA1A1A;
+  --errC:     #FFDAD6;
+  --ov:       #74777F;
+  --ovV:      #C4C6D0;
+  --on:       #1A1C20;
+  --onV:      #44474F;
+  --warn:     #7A5900;
+  --warnC:    #FFDEa9;
+  --e1:       0 1px 2px rgba(0,0,0,.07),0 1px 3px 1px rgba(0,0,0,.04);
+  --e2:       0 1px 2px rgba(0,0,0,.09),0 2px 6px 2px rgba(0,0,0,.07);
+  --e3:       0 4px 8px 3px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.09);
+  --e4:       0 6px 10px 4px rgba(0,0,0,.07),0 2px 3px rgba(0,0,0,.11);
+  --radius:   16px;
+  --radius-sm: 10px;
+}
+
+[data-theme="dark"] {
+  --bg:    #0F1117;
+  --s0:    #1A1C23;
+  --s1:    #22252F;
+  --s2:    #2A2D3A;
+  --s3:    #333645;
+  --p:     #5B8DEF;
+  --pC:    #1A2952;
+  --onP:   #FFFFFF;
+  --onPC:  #A8C4FF;
+  --sec:   #8B90C4;
+  --secC:  #252847;
+  --ter:   #4DB8A8;
+  --terC:  #0A3330;
+  --onTer: #FFFFFF;
+  --onTerC:#00F0D0;
+  --err:   #FF7070;
+  --errC:  #3D1010;
+  --ov:    #8E9099;
+  --ovV:   #3A3D4A;
+  --on:    #E1E3EA;
+  --onV:   #A0A3AF;
+  --warn:  #FFB84D;
+  --warnC: #3A2800;
+}
+
+/* ── Mobile first — Rail collapses < 768px ─────────────────── */
+@media (max-width: 768px) {
+  .rail {
+    width: 0 !important;
+    transform: translateX(-100%);
+    transition: transform .25s cubic-bezier(.2,0,0,1), width .25s !important;
+  }
+  .rail.open {
+    width: 260px !important;
+    transform: translateX(0) !important;
+    box-shadow: 4px 0 40px rgba(0,0,0,.18) !important;
+  }
+  .main, .main.ro {
+    margin-left: 0 !important;
+  }
+  /* Overlay when rail is open on mobile */
+  .rail-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.42);
+    z-index: 29;
+    animation: fdi .2s ease;
+  }
+  .mg { grid-template-columns: 1fr 1fr !important; }
+  .two { grid-template-columns: 1fr !important; }
+  .three { grid-template-columns: 1fr !important; }
+  .kb { flex-direction: column !important; }
+  .kc { min-width: unset !important; }
+  .pg { padding: 14px !important; }
+  .tb { padding: 0 10px !important; }
+  .tbt { font-size: 14px !important; }
+  .dlg { border-radius: 20px 20px 0 0 !important; position: fixed !important; bottom: 0 !important; width: 100% !important; max-width: 100% !important; }
+  .dlgb { align-items: flex-end !important; }
+}
+
+@media (max-width: 480px) {
+  .mg { grid-template-columns: 1fr !important; }
+  .tb button.btn { display: none; }
+  .tb .fab-inline { display: flex !important; }
+}
