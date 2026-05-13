@@ -1,56 +1,64 @@
-import { useCallback, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { AuthProvider, useAuth } from './contexts/AuthContext.jsx'
 import { useToast } from './hooks/useToast.js'
 import { useNavigation } from './hooks/useNavigation.js'
 import Layout from './Layout.jsx'
 import LoginPage from './components/Auth/LoginPage.jsx'
 
-// Pages
-import Onboarding         from './components/Onboarding/Onboarding.jsx'
-import Dashboard          from './components/dashboard/Dashboard.jsx'
-import CalendarPage       from './components/dashboard/CalendarPage.jsx'
-import PostsPage          from './components/Posts/PostsPage.jsx'
-import PostEditor         from './components/Posts/PostEditor.jsx'
-import MediaPage          from './components/Posts/MediaPage.jsx'
-import TagsCategoriesPage from './components/Posts/TagsCategoriesPage.jsx'
-import PostAnalyticsPage  from './components/Analytics/PostAnalyticsPage.jsx'
-import PerformanceDashboard    from './components/Analytics/PerformanceDashboard.jsx'
-import ProductivityDashboard   from './components/Analytics/ProductivityDashboard.jsx'
-import SEODeepPage        from './components/Analytics/SEODeepPage.jsx'
-import ABTestingPage      from './components/Analytics/ABTestingPage.jsx'
-import ReadabilityPage    from './components/Analytics/ReadabilityPage.jsx'
-import PlagiarismPage     from './components/Analytics/PlagiarismPage.jsx'
-import AIProducerPage     from './components/AIContent/AIProducerPage.jsx'
-import IdeasPage          from './components/AIContent/IdeasPage.jsx'
-import ContentBriefPage   from './components/AIContent/ContentBriefPage.jsx'
-import ContentRepurposingPage from './components/AIContent/ContentRepurposingPage.jsx'
-import ContentGapPage     from './components/AIContent/ContentGapPage.jsx'
-import EvergreenPage      from './components/AIContent/EvergreenPage.jsx'
-import AutomationsPage    from './components/Automations/AutomationsPage.jsx'
-import RecurringSchedulesPage from './components/RecurringSchedules/RecurringSchedulesPage.jsx'
-import SourcesPage        from './components/Sources/SourcesPage.jsx'
-import CompetitorPage     from './components/Sources/CompetitorPage.jsx'
-import WordPressPage      from './components/Platforms/WordPressPage.jsx'
-import PublishHistoryPage from './components/Publishing/PublishHistoryPage.jsx'
-import MultiChannelPublisher  from './components/Publishing/MultiChannelPublisher.jsx'
-import ReportsPage        from './components/Publishing/ReportsPage.jsx'
-import ExportReportsPage  from './components/Publishing/ExportReportsPage.jsx'
-import ProjectsPage       from './components/Projects/ProjectsPage.jsx'
-import ProjectDetailPage  from './components/Projects/ProjectDetailPage.jsx'
-import TemplatesPage      from './components/Templates/TemplatesPage.jsx'
-import WebStoriesPage     from './components/Templates/WebStoriesPage.jsx'
-import VersionHistoryPage from './components/Collaboration/VersionHistoryPage.jsx'
-import InlineCommentsPage from './components/Collaboration/InlineCommentsPage.jsx'
-import PostTaskPanel      from './components/Tasks/PostTaskPanel.jsx'
-import IntegrationsPage   from './components/Integrations/IntegrationsPage.jsx'
-import NotificationCenterPage from './components/Notifications/NotificationCenterPage.jsx'
-import AdminPanel         from './components/Admin/AdminPanel.jsx'
-import SettingsPage       from './components/Settings/SettingsPage.jsx'
-import UsersPage          from './components/Settings/UsersPage.jsx'
-import BackupPage         from './components/Settings/BackupPage.jsx'
-import SupportPage        from './components/Settings/SupportPage.jsx'
-import SystemHealthPage   from './components/Settings/SystemHealthPage.jsx'
-import CreatePostPage     from './components/CreatePost/CreatePostPage.jsx'
+// Lazy-loaded pages — only bundled when first visited
+const Onboarding              = lazy(() => import('./components/Onboarding/Onboarding.jsx'))
+const Dashboard               = lazy(() => import('./components/dashboard/Dashboard.jsx'))
+const CalendarPage            = lazy(() => import('./components/dashboard/CalendarPage.jsx'))
+const PostsPage               = lazy(() => import('./components/Posts/PostsPage.jsx'))
+const PostEditor              = lazy(() => import('./components/Posts/PostEditor.jsx'))
+const MediaPage               = lazy(() => import('./components/Posts/MediaPage.jsx'))
+const TagsCategoriesPage      = lazy(() => import('./components/Posts/TagsCategoriesPage.jsx'))
+const PostAnalyticsPage       = lazy(() => import('./components/Analytics/PostAnalyticsPage.jsx'))
+const PerformanceDashboard    = lazy(() => import('./components/Analytics/PerformanceDashboard.jsx'))
+const ProductivityDashboard   = lazy(() => import('./components/Analytics/ProductivityDashboard.jsx'))
+const SEODeepPage             = lazy(() => import('./components/Analytics/SEODeepPage.jsx'))
+const ABTestingPage           = lazy(() => import('./components/Analytics/ABTestingPage.jsx'))
+const ReadabilityPage         = lazy(() => import('./components/Analytics/ReadabilityPage.jsx'))
+const PlagiarismPage          = lazy(() => import('./components/Analytics/PlagiarismPage.jsx'))
+const AIProducerPage          = lazy(() => import('./components/AIContent/AIProducerPage.jsx'))
+const IdeasPage               = lazy(() => import('./components/AIContent/IdeasPage.jsx'))
+const ContentBriefPage        = lazy(() => import('./components/AIContent/ContentBriefPage.jsx'))
+const ContentRepurposingPage  = lazy(() => import('./components/AIContent/ContentRepurposingPage.jsx'))
+const ContentGapPage          = lazy(() => import('./components/AIContent/ContentGapPage.jsx'))
+const EvergreenPage           = lazy(() => import('./components/AIContent/EvergreenPage.jsx'))
+const AutomationsPage         = lazy(() => import('./components/Automations/AutomationsPage.jsx'))
+const RecurringSchedulesPage  = lazy(() => import('./components/RecurringSchedules/RecurringSchedulesPage.jsx'))
+const SourcesPage             = lazy(() => import('./components/Sources/SourcesPage.jsx'))
+const CompetitorPage          = lazy(() => import('./components/Sources/CompetitorPage.jsx'))
+const WordPressPage           = lazy(() => import('./components/Platforms/WordPressPage.jsx'))
+const PublishHistoryPage      = lazy(() => import('./components/Publishing/PublishHistoryPage.jsx'))
+const MultiChannelPublisher   = lazy(() => import('./components/Publishing/MultiChannelPublisher.jsx'))
+const ReportsPage             = lazy(() => import('./components/Publishing/ReportsPage.jsx'))
+const ExportReportsPage       = lazy(() => import('./components/Publishing/ExportReportsPage.jsx'))
+const ProjectsPage            = lazy(() => import('./components/Projects/ProjectsPage.jsx'))
+const ProjectDetailPage       = lazy(() => import('./components/Projects/ProjectDetailPage.jsx'))
+const TemplatesPage           = lazy(() => import('./components/Templates/TemplatesPage.jsx'))
+const WebStoriesPage          = lazy(() => import('./components/Templates/WebStoriesPage.jsx'))
+const VersionHistoryPage      = lazy(() => import('./components/Collaboration/VersionHistoryPage.jsx'))
+const InlineCommentsPage      = lazy(() => import('./components/Collaboration/InlineCommentsPage.jsx'))
+const PostTaskPanel           = lazy(() => import('./components/Tasks/PostTaskPanel.jsx'))
+const IntegrationsPage        = lazy(() => import('./components/Integrations/IntegrationsPage.jsx'))
+const NotificationCenterPage  = lazy(() => import('./components/Notifications/NotificationCenterPage.jsx'))
+const AdminPanel              = lazy(() => import('./components/Admin/AdminPanel.jsx'))
+const SettingsPage            = lazy(() => import('./components/Settings/SettingsPage.jsx'))
+const UsersPage               = lazy(() => import('./components/Settings/UsersPage.jsx'))
+const BackupPage              = lazy(() => import('./components/Settings/BackupPage.jsx'))
+const SupportPage             = lazy(() => import('./components/Settings/SupportPage.jsx'))
+const SystemHealthPage        = lazy(() => import('./components/Settings/SystemHealthPage.jsx'))
+const CreatePostPage          = lazy(() => import('./components/CreatePost/CreatePostPage.jsx'))
+
+function PageLoader() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
+      <div className="spinner" style={{ width: 24, height: 24, borderWidth: 3 }} />
+    </div>
+  )
+}
 
 function Toast({ msg, type = 'info' }) {
   if (!msg) return null
@@ -82,9 +90,7 @@ function AppShell() {
 
   if (!user) return <LoginPage />
 
-  // Onboarding: show if profile has no wordpress sites yet (first login)
   const needsOnboarding = profile && !profile.onboarding_done
-
   const p = { go, showToast }
 
   function renderPage() {
@@ -141,9 +147,15 @@ function AppShell() {
 
   return (
     <>
-      {needsOnboarding && <Onboarding onDone={() => {}} />}
+      {needsOnboarding && (
+        <Suspense fallback={null}>
+          <Onboarding onDone={() => {}} />
+        </Suspense>
+      )}
       <Layout page={page} go={go} showToast={showToast}>
-        {renderPage()}
+        <Suspense fallback={<PageLoader />}>
+          {renderPage()}
+        </Suspense>
       </Layout>
       <Toast msg={toast} type={toastType} />
     </>
